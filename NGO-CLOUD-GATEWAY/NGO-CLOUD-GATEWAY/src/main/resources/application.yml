@@ -1,0 +1,38 @@
+server:
+  port: 9191
+
+spring:  application:    name: API-GATEWAY
+  cloud:    gateway:      routes:        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
+          predicates:            - Path=/user/**
+        - id: TRANSACTION-SERVICE
+          uri: lb://TRANSACTION-SERVICE
+          predicates:
+            - Path=/donations/**
+        - id: NGO-SERVICE
+          uri: lb://NGO-SERVICE
+          predicates:
+            - Path=/ngo/**
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowedOrigins: "http://localhost:3000"
+#            allowedHeaders : "*"
+#            allowedMethods: "*"
+#            - GET
+#            - POST
+#            - PUT    
+
+         
+
+
+
+    
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
